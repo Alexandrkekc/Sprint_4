@@ -74,7 +74,8 @@ public class SecondOrderPage {
 
     // Проверить, появилось ли сообщение об успешном заказе
     public boolean isSuccessOrderMessageShowed() {
-        return driver.findElement(successOrderMessage).isDisplayed() &&
-                driver.findElement(checkStatusSuccessMessage).isDisplayed();
+        return driver.findElement(successOrderMessage).isDisplayed()
+                && driver.findElement(successOrderMessage).getText().contains("Заказ оформлен")
+                && driver.findElement(checkStatusSuccessMessage).isDisplayed();
     }
 }

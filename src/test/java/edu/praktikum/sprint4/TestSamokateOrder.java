@@ -3,31 +3,14 @@ package edu.praktikum.sprint4;
 import edu.praktikum.sprint4.pom.FirstOrderPage;
 import edu.praktikum.sprint4.pom.MainPage;
 import edu.praktikum.sprint4.pom.SecondOrderPage;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.time.Duration;
-
-import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
+public class TestSamokateOrder extends BaseClass {
 
-
-public class TestSamokateOrder {
-
-    @Before
-    public void createNewChromeDriver() {
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.of(3, SECONDS));
-    }
-
-    private WebDriver driver;
     private final String entryPoint;
     private final String name;
     private final String surname;
@@ -53,7 +36,7 @@ public class TestSamokateOrder {
     }
 
     @Parameterized.Parameters
-    public static Object[][] getQuestionsAndAnswers() {
+    public static Object[][] fillingOrderFields() {
         return new Object[][]{
                 // Этот тест упадет в Chrome из-за бага (нет сообщения об успешном заказе), но пройдет успешно в Firefox
                 {"Header", "Александр", "Малина", "ул. Сезам, 10", "Митино", "79297078015", "26.05.2024", "семеро суток", "grey", "Комментарий"},
@@ -69,7 +52,7 @@ public class TestSamokateOrder {
     @Test
     public void scooterOrder() {
         MainPage mainPage = new MainPage(driver);
-        mainPage.open()
+        mainPage.openMainPage()
                 .closeCookiesMessage()
                 .clickOrderButton(entryPoint);
 
@@ -90,11 +73,6 @@ public class TestSamokateOrder {
                 .clickYesOrderButton();
 
         assertTrue(secondOrderPage.isSuccessOrderMessageShowed());
-    }
-
-    @After
-    public void tearDown() {
-        driver.quit();
     }
 
 }

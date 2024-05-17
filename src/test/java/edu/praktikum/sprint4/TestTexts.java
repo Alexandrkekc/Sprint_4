@@ -1,29 +1,14 @@
 package edu.praktikum.sprint4;
 
 import edu.praktikum.sprint4.pom.MainPage;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.time.Duration;
-
-import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
-public class TestTexts {
+public class TestTexts extends BaseClass {
 
-    @Before
-    public void createNewChromeDriver() {
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.of(3, SECONDS));
-    }
-
-    private WebDriver driver;
     private final String question;
     private final String answer;
 
@@ -47,18 +32,14 @@ public class TestTexts {
     }
 
     @Test
-    public void CheckTextInSelect() {
+    public void checkTextInSelect() {
 
         MainPage mainPage = new MainPage(driver);
-        mainPage.open()
+        mainPage.openMainPage()
                 .closeCookiesMessage()
                 .scrollToQuestion()
                 .clickOnQuestion(question);
         assertTrue(mainPage.isCorrectAnswerDisplayed(answer));
     }
 
-    @After
-    public void tearDown() {
-        driver.quit();
-    }
 }

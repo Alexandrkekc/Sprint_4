@@ -37,7 +37,7 @@ public class MainPage {
     }
 
     //метод открытия главной страницы
-    public MainPage open() {
+    public MainPage openMainPage() {
         driver.get(URL);
         driver.manage().window().fullscreen();
         return this;
